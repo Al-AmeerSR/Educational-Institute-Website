@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 800px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CSS styles for the overlay image */
+        .overlay-image {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* CSS styles for the form */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* CSS styles for the heading */
+        .form-heading {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:include="header::body"></div>
+    <div class="containers">
+        <div class="overlay-image">
+            <h1 class="form-heading">Connect With Us!</h1>
+            <form class="form-container" action="#" th:action="@{/sendemail}" th:object="${contactForm}" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Name" th:field="*{username}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email" th:field="*{email}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" th:field="*{subject}"
+                        required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="message" placeholder="Message" th:field="*{message}"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

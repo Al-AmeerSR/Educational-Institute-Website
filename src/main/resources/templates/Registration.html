@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 1200px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CSS styles for the overlay image */
+        .overlay-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* CSS styles for the form */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* CSS styles for the form heading */
+        .form-heading {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* CSS styles for the form label */
+        .form-label {
+            font-weight: bold;
+        }
+
+        /* CSS styles for the checkboxes */
+        .form-checkboxes label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+        function updateCityOptions() {
+            var state = document.getElementById("state").value;
+            var citySelect = document.getElementById("city");
+            var country = document.getElementById("country");
+            // Clear current options
+            citySelect.innerHTML = "";
+
+            // Add options based on the selected state
+            if (state === "Kerala") {
+                var cities = ["Trivandrum", "Kollam", "Ernakulam"];
+                for (var i = 0; i < cities.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = cities[i];
+                    citySelect.add(option);
+                }
+            } else if (state === "Tamil Nadu") {
+                var cities = ["Chennai", "Nagercoil"];
+                for (var i = 0; i < cities.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = cities[i];
+                    citySelect.add(option);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div th:include="header::body"></div>
+    <div class="containers">
+        <div class="overlay-image">
+            <div class="form-container">
+                <h1 class="form-heading">Create an Account</h1>
+                <form th:action="@{/Registration}" th:object="${user}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control"
+                            th:field="*{firstName}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select id="gender" name="gender" class="form-control" th:field="*{gender}">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" class="form-control" th:field="*{dob}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" th:field="*{email}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                            th:field="*{phoneNumber}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="country">Country</label>
+                        <select id="country" name="country" class="form-control" th:field="*{country}">
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="state">State</label>
+                        <select id="state" name="state" class="form-control" onchange="updateCityOptions()"
+                            th:field="*{state}">
+                            <option value="Kerala">Kerala</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="city">City</label>
+                        <select id="city" name="city" class="form-control" th:field="*{city}">
+                            <option value="Kollam">Kollam</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="hobbies">Hobbies</label>
+                        <div class="form-checkboxes">
+                            <label><input type="checkbox" name="hobbies" value="reading" th:field="*{hobbies}"> Reading</label>
+                            <label><input type="checkbox" name="hobbies" value="fitness" th:field="*{hobbies}"> Fitness</label>
+                            <label><input type="checkbox" name="hobbies" value="writing" th:field="*{hobbies}"> Writing Journals</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="avatar">Upload Avatar</label>
+                        <input type="file" id="avatar" name="avatar">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

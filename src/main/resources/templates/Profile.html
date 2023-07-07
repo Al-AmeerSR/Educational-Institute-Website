@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 800px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-top: 50px;
+        }
+
+        /* CSS styles for the table container */
+        .table-container {
+            border: 1px solid black;
+            margin-bottom: 200px;
+            padding: 20px 20px;
+            text-align: left;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        /* CSS styles for the image */
+        .profile-image {
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* CSS styles for user details */
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .user-details span {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:include="Loginheader::body"></div>
+    <div class="containers">
+        <img class="profile-image" th:src="@{'data:image/*;base64,' + ${base64Image}}" alt="Profile Image"
+            height="200px" width="200px">
+        <a class="btn btn-danger" th:href="@{/Edit}" role="button">Edit Profile</a>
+        <div class="table-container">
+            <div class="user-details">
+                <span>User Name:<span th:text="${user.firstName}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>User Email:<span th:text="${user.email}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>User Phone: <span th:text="${user.phoneNumber}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>Date of Birth: <span th:text="${user.dob}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>User Course: <span th:text="${user.course}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>User Hobbies: <span th:text="${hobbiesString}"></span></span>
+            </div>
+            <div class="user-details">
+                <span>Change Password: <a th:href="@{/ChangePassword}">Click</a></span>
+            </div>
+            <div class="user-details">
+                <span th:if="${not user.verified}">Not Verified <a th:href="@{/Verify}">Verify</a></span>
+                <span th:if="${user.verified}">Verified User</span>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

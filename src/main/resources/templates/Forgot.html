@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 500px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CSS styles for the overlay */
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        /* CSS styles for the form */
+        .form {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .form label {
+            font-size: 18px;
+        }
+
+        .form input[type="email"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:include="header::body"></div>
+    <div class="containers">
+        <div class="overlay">
+            <h2>Enter your email</h2>
+            <form th:object="${user}" action="#" th:action="@{/Forgot}" class="form" method="post">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

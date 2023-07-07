@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 800px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CSS styles for the overlay image */
+        .overlay-image {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* CSS styles for the form */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .fields {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* CSS styles for the heading */
+        .form-heading {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        /* CSS styles for the anchor tag */
+        .forgot-password {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:include="header::body"></div>
+    <div class="containers">
+        <div class="overlay-image">
+            <h1 class="form-heading">Log In</h1>
+            <form action="#" th:action="@{/Login}" class="form-container" th:object="${user}" method="post">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control fields" placeholder="Email"
+                        th:field="*{email}" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control fields" placeholder="Password"
+                        th:field="*{pass}" required>
+                </div>
+                <div class="form-group Remember-me">
+                    <div class="form-check">
+                        <input type="checkbox" id="keepLoggedIn" name="keepLoggedIn" value="true" class="form-check-input">
+                        <label class="form-check-label" for="keepLoggedIn">Keep me Logged In</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <div class="forgot-password">
+                <a th:href="@{/Forgot}">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS styles for the container */
+        .containers {
+            position: relative;
+            height: 800px;
+            background-image: url("../images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+
+        /* CSS styles for the glassmorphism effect */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* CSS styles for form fields and button */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        form label {
+            margin-bottom: 10px;
+        }
+
+        form input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form input[type="date"] {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"] {
+            border-radius: 5px;
+            background-color: green;
+            color: white;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:include="Loginheader::body"></div>
+    <div class="containers">
+        <div class="glassmorphism">
+            <form th:action="@{/Edit/{email}(email=${user.email})}" th:object="${user}" method="post"
+                enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required
+                        class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required
+                        class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" th:field="*{email}" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required
+                        class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" th:field="*{dob}" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <img class="profile-image" th:src="@{'data:image/*;base64,' + ${base64Image}}"
+                        alt="Profile Image" height="200px" width="200px">
+                    <input type="file" id="avatar" name="avatar" class="form-control-file">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+    <div th:include="footer::body"></div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
