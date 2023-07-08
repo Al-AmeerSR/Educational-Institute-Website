@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.scopeindia.project.Model.ContactForm;
 import com.scopeindia.project.Model.Course;
 import com.scopeindia.project.Model.User;
@@ -351,6 +353,7 @@ public class ScopeController {
 	}
 	@GetMapping("/ChangePassword")
 	public String Change(Model model,HttpSession session) {
+//		model.getAttribute("message",message);
 		User user=(User)session.getAttribute("user");
 		System.out.println(user.getEmail());
 		String email=user.getEmail();
@@ -364,11 +367,21 @@ public class ScopeController {
 	
 	}
 	@PostMapping("/ChangePassword")
-	public String ChangeP(@ModelAttribute("user")User user,Model model,HttpSession session) {
+	public String ChangeP(@ModelAttribute("user")User user,@RequestParam("Confirmpassword")String cpass,Model model,RedirectAttributes redirect,HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		User loguser=(User)session.getAttribute("user");
 		User updateduser =urepo.findByemail(loguser.getEmail());
+		if(!user.getPass().equals(cpass)) {
+			String message="Passwords do not match!";
+			redirect.addFlashAttribute("message",message);
+			return"redirect:/ChangePassword";
+		}
+		
 		updateduser.setPass(user.getPass());
 		urepo.save(updateduser);
+		 Cookie[] cookies = request.getCookies();
+		    if (cookies != null) {
+		    	service.removeCookies(cookies, response);
+		    }
 		session.removeAttribute("user");
 		return"redirect:/";
 	}
