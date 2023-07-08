@@ -297,7 +297,7 @@ public class ScopeController {
 		
 	}
 	@PostMapping("/Verify/{email}")
-	public String VerifyP(@ModelAttribute("user")User user,@PathVariable("email")String mail,HttpSession session) {
+	public String VerifyP(@ModelAttribute("user")User user,@PathVariable("email")String mail,RedirectAttributes redirect,HttpSession session) {
 
 		System.out.println(user.getOtp());
 		User loguser=urepo.findByemail(mail);
@@ -306,7 +306,9 @@ public class ScopeController {
 			urepo.save(loguser);
 			return"redirect:/Profile";
 		}
-		return"error";
+		String message="Wrong Otp!";
+		redirect.addFlashAttribute("message",message);
+		return"redirect:/Verify";
 	}
 	@RequestMapping("/Edit")
 	public String EditProfile(Model model,HttpSession session) {

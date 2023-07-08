@@ -68,6 +68,9 @@
     <div th:include="Loginheader::body"></div>
     <div class="containers">
         <div class="overlay">
+                 <div th:if="${message}" class="alert alert-info">
+        <p th:text="${message}"></p>
+       </div>
             <h2>Enter the OTP</h2>
             <form th:object="${user}" action="#"
                 th:action="@{/Verify/{email}(email=${user.email})}" class="form" method="post">

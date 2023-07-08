@@ -122,13 +122,15 @@
                     <div class="form-group">
                         <label class="form-label" for="firstName">First Name</label>
                         <input type="text" id="firstName" name="firstName" class="form-control"
-                            th:field="*{firstName}" required>
+                            th:field="*{firstName}" required pattern=".{3,}">
+                        <small class="form-text text-muted">Minimum 3 characters required.</small>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="lastName">Last Name</label>
                         <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}"
-                            required>
+                            required pattern=".{3,}">
+                        <small class="form-text text-muted">Minimum 3 characters required.</small>
                     </div>
 
                     <div class="form-group">
@@ -154,7 +156,8 @@
                     <div class="form-group">
                         <label class="form-label" for="phoneNumber">Phone Number</label>
                         <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
-                            th:field="*{phoneNumber}" required>
+                            th:field="*{phoneNumber}" required pattern="\d{10,}">
+                        <small class="form-text text-muted">Minimum 10 digits required.</small>
                     </div>
 
                     <div class="form-group">

@@ -13,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="Scope_Users")
@@ -21,16 +24,20 @@ public class User {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int id;
 	    @Column(name="firstName")
+	    @Size(min=3,message="First name must contain 3 characters")
 	 	private String firstName;
 	    @Column(name="lastName")
+	    @Size(min=3,message="First name must contain 3 characters")
 	    private String lastName;
 	    @Column(name="gender")
 	    private String gender;
 	    @Column(name="dob")
 	    private LocalDate dob;
 	    @Column(name="email")
+	    @Email
 	    private String email;
 	    @Column(name="phoneNumber")
+	    @Digits(integer=10, fraction = 0)
 	    private String phoneNumber;
 	    @Column(name="country",nullable=true)
 	    private String country;
